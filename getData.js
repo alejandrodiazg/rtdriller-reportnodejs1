@@ -70,12 +70,36 @@ async function getValues(
           timerecord.push(time);
         }
 
+        const datarecord = [];
+
+        for (let i = 0; i < datosrttime.length; i++) {
+          const time = datosrttime[i].vars['01']['HKLA'];
+          datarecord.push(time);
+        }
+
+        if (datarecord.every(value => value === null || value === undefined)) {
+          datarecord.splice(0, datarecord.length);
+          for (let i = 0; i < datosrttime.length; i++) {
+            const time = datosrttime[i].vars['11']['TVOL03'];
+            datarecord.push(time);
+          }
+        } 
+
+       
+
+   
+          for (let i = 0; i < Object.keys(vars).length; i++) {
+            const array = vars[i];
+            for (let k = 0; k < array.length; k++) {
+            console.log(array[k])
+            }
+          }
         
 
 
     
     // Retorna la data config y time
-      return { datosuserconfig, timerecord };
+      return { datosuserconfig, timerecord,  datarecord };
     } catch (error) {
       throw error;
     }
